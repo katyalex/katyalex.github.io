@@ -12,13 +12,13 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Please submit all assignments on Canvas in .doc, .docx, or .pdf file!
 
-![](Screenshot%202023-08-24%20at%2013.48.15.png){style="display: block; margin: 0 auto"}
+![](Screenshot%202023-08-24%20at%2013.48.15.png){style="display: block; margin: 0 auto" width="588"}
 
 ## Announcement
 
 Click the Submit Assignment button and then upload the file
 
-![](Screenshot%202023-08-24%20at%2013.49.57.png){style="display: block; margin: 0 auto"}
+![](Screenshot%202023-08-24%20at%2013.49.57.png){style="display: block; margin: 0 auto" width="588"}
 
 ## Three ways to use RStudio
 
@@ -124,7 +124,7 @@ If you want to change the location of working directory permanently, you can do 
 
 Just go to Tools--\>Global Options
 
-![](Screenshot%202023-08-24%20at%2016.38.57.png){style="display: block; margin: 0 auto"}
+![](Screenshot%202023-08-24%20at%2016.38.57.png){style="display: block; margin: 0 auto" width="588"}
 
 Click the browse button and change the default location of the working directory.
 
@@ -146,7 +146,7 @@ Two ways to open a file in RStudio:
 
 Highlight the lines of code that you want to run:
 
-![](Screenshot 2023-08-24 at 16.52.15.png){style="display: block; margin: 0 auto"}
+![](Screenshot 2023-08-24 at 16.52.15.png){style="display: block; margin: 0 auto" width="448"}
 
 Then press the run button at the top of your script
 
