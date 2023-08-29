@@ -86,28 +86,3 @@ x
 x <-28 #Then I assign the number of 28 to an R object “x”
 x #Now the R object “x” stores the number of 28 instead of 13
 
-## ---- echo = T----------------------------------------------------------------
-#make this example reproducible
-set.seed(1)
-n=300
-#This command simulated data with the sample size n=300 with mean 50 and standard deviation of 10;
-#distribution is normal.
-mydata = rnorm(n, mean=50, sd=10)  
-#view first 6 observations in sample
-head(mydata)
-#As we asked R to do it, we have 300 observations in our data:
-length(mydata)
-#And we have mean of 50!
-mean(mydata)
-#find standard deviation of sample
-sd(mydata)
-# Calculate the 5 number quantile summary of the variable
-quantile(mydata,c(0,.25,.5,.75,1))
-
-## ---- echo=T------------------------------------------------------------------
-hist(mydata, breaks=10,right=FALSE)
-?hist
-
-## ---- echo=T------------------------------------------------------------------
-hist(mydata, breaks=10,right=FALSE, xlab = "Test Scores", col = "yellow", border = "green")
-
