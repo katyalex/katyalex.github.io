@@ -1,7 +1,4 @@
 ## S371 Lab Notes
-<form>
-<input type="BUTTON" value="Homepage" onclick="window.location.href='https://www.computerhope.com/'">
-</form>
 
 <a href="https://calendar.app.google/SDGU3k2BU7jmmZsy6" target="_blank" title="Book Office Hours with me here">Book Office Hours with me here</a>
 
