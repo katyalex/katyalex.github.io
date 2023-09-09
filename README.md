@@ -11,3 +11,6 @@
 
 <a href="Lab-3.html" target="_blank" title="Lab 3">Lab 3</a>  
       <a href="Lab-3.R" target="_blank" title="Lab 3 [R Code]">Lab 3 [R Code]</a>
+
+<a href="Lab-4.html" target="_blank" title="Lab 4">Lab 4</a>  
+      <a href="Lab-4.R" target="_blank" title="Lab 4 [R Code]">Lab 4 [R Code]</a>
