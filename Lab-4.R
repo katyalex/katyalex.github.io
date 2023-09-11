@@ -8,7 +8,7 @@ hw1 = read_excel("testscore.xlsx")
 hw1 = na.omit(hw1)
 summary(hw1$total)
 
-## ---- echo = F----------------------------------------------------------------
+## ---- echo = F, out.width="50%",  fig.align = 'center', warning=F-------------
 hist(hw1$total, main = "HW 1 Distribution", xlab = "Scores")
 
 ## ---- echo = T, error=T-------------------------------------------------------
@@ -23,8 +23,14 @@ load('smdata.Rda') ## Remember that your dataset should be in the same working d
 ## -----------------------------------------------------------------------------
 View(smdata)
 
-## -----------------------------------------------------------------------------
-head(smdata)
+## ---- echo=F, out.width="50%",  fig.align = 'center', warning=F---------------
+library(kableExtra)
+
+head(smdata) %>%
+  kable(booktabs = T) %>%
+  kable_styling(full_width = F, html_font = "Cambria")  %>%
+  row_spec(2, bold = TRUE, italic = F, color = 'white', background = 'black') %>%                 kable_classic(full_width = F, html_font = "Cambria")
+
 
 ## -----------------------------------------------------------------------------
 summary(smdata)
