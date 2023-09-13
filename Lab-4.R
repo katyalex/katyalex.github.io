@@ -6,7 +6,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
 hw1 = read_excel("testscore.xlsx")
 hw1 = na.omit(hw1)
-summary(hw1$total)
+mean(hw1$total)
+median(hw1$total)
+sd(hw1$total)
 
 ## ---- echo = F, out.width="50%",  fig.align = 'center', warning=F-------------
 hist(hw1$total, main = "HW 1 Distribution", xlab = "Scores")
