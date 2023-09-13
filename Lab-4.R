@@ -2,23 +2,6 @@
 knitr::knit_hooks$set(purl = knitr::hook_purl)
 knitr::opts_chunk$set(echo = TRUE)
 
-## ---- echo = F----------------------------------------------------------------
-library(readxl)
-hw1 = read_excel("testscore.xlsx")
-hw1 = na.omit(hw1)
-
-## ---- echo = F----------------------------------------------------------------
-mean(hw1$total)
-
-## ---- echo = F----------------------------------------------------------------
-median(hw1$total)
-
-## ---- echo = F----------------------------------------------------------------
-sd(hw1$total)
-
-## ---- echo = F, out.width="50%",  fig.align = 'center', warning=F-------------
-hist(hw1$total, main = "HW 1 Distribution", xlab = "Scores")
-
 ## ---- echo = T, error=T-------------------------------------------------------
 ##This is example of a comment.
 
