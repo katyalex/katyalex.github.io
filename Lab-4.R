@@ -6,8 +6,14 @@ knitr::opts_chunk$set(echo = TRUE)
 library(readxl)
 hw1 = read_excel("testscore.xlsx")
 hw1 = na.omit(hw1)
+
+## ---- echo = F----------------------------------------------------------------
 mean(hw1$total)
+
+## ---- echo = F----------------------------------------------------------------
 median(hw1$total)
+
+## ---- echo = F----------------------------------------------------------------
 sd(hw1$total)
 
 ## ---- echo = F, out.width="50%",  fig.align = 'center', warning=F-------------
