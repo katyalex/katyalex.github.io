@@ -82,23 +82,22 @@ The plot() command in R is a generic plot command that can actually produce many
 ## Scatter plot
 
 There are many options in `plot()`:
-```{r, eval = F}
+
+```{r, echo = F}
+x = rnorm(1000, 10, 2)
+y = x*2+rnorm(1000, 1, 2)
+
+```
+
+```{r, eval = T, out.width="45%",  fig.align = 'center', warning=F}
+par(mfrow=c(2,3))
 plot(x, y, main = "This is the main title") #set the main title
 plot(x, y, xlab = "This is the x-axis title") #set the x-axis title
 plot(x, y, ylab = "This is the y-axis title" ) #set the y-axis title
 plot(x, y, col = "red" ) #Color of dots in the scatter plot
-plot(x, y, pch = 0) #Different dot shapes in the scatter plot; This should be an integer from 0 to 25. If you don’t type the pch option, R would use the default value of 1 in pch option
-```
-
-
-```{r, echo = F, out.width="60%",  fig.align = 'center', warning=F}
-x = rnorm(1000, 10, 2)
-y = x*2+rnorm(1000, 1, 2)
-plot(x, y, main = "This is the main title", 
-     xlab = "This is the x-axis title", 
-     ylab = "This is the y-axis title", 
-     col = "red", 
-     pch = 0)
+plot(x, y, pch = 0) #Different dot shapes in the scatter plot; 
+#This should be an integer from 0 to 25. If you don’t type the pch option, 
+#R would use the default value of 1 in pch option
 ```
 
 ## Scatter plot
@@ -108,7 +107,7 @@ To combine multiple options, you just need to put all the options you want withi
 
 _Example: I want to specify the main title, x-axis title, and y-axis title in the scatter plot_
 
-```{r, echo = T, out.width="60%",  fig.align = 'center', warning=F, eval=F}
+```{r, echo = T, out.width="60%",  fig.align = 'center', warning=F, eval=T}
 plot(x, y, main = "This is the main title", 
      xlab = "This is the x-axis title", 
      ylab = "This is the y-axis title", 
@@ -150,9 +149,9 @@ dev.off()
 
 We cannot ask every single person in our population (let's say we are interested in income distribution of all USA residents (~350 million people))
 
-Then, we need to ***cheat***
+Then, we need to ***find a feasible way to do it***
 
-Is it legit? Yes! 
+We are going to draw a sample, that will resemble the whole population.
 
 Why? Due to the properties of the ***Central Limit Theorem***!
 
