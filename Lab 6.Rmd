@@ -1,0 +1,485 @@
+---
+title: 'S371: Lab 6'
+author: 'Lab Instructor: Katya Baldina (baldina@iu.edu)'
+date: "2023-09-27"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE, warning=F}
+knitr::knit_hooks$set(purl = knitr::hook_purl)
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+
+```
+
+## Announcement
+
+HW 3 IS DUE SATURDAY (SEP.30)!
+
+## Today
+
+. . .
+
+- Bivariate graphs 
+
+. . .
+
+- Scatter plot 
+
+. . .
+
+- Sampling 
+
+. . .
+
+- Central Limit Theorem 
+
+. . .
+
+-   HW3 Guide
+
+
+## Bivariate plots 
+
+```{r, echo = F,  fig.align = 'center'}
+stats <- data.frame(matrix(ncol=3,
+                           nrow=2, 
+                           dimnames=list(NULL, 
+                                        c('Variable',
+                                          'Quantitative', 
+                                          'Categorical'))))
+
+stats[1, 1] = "Quantitative"
+stats[2, 1] = "Categorical"
+stats[1, 2] = "Scatter plot"
+stats[2, 2] = "Box plot, bar chart"
+stats[1, 3] = "Box plot, bar chart"
+stats[2, 3] = "Table or bar chart"
+
+library(kableExtra)
+stats %>%
+  kbl(digits=4) %>%
+   kable_classic(full_width = F, html_font = "Cambria")
+```
+
+Today we will cover bivariate graph for quantitative- quantitative variables only
+
+## Scatter plot 
+
+To visualize the relationships between two quantitative variables type: 
+
+```{r, eval=F}
+plot(x, y) #x and y are names for your variables
+```
+
+The plot() command in R is a generic plot command that can actually produce many kinds of plots (e.g., distribution function)
+
+
+## Scatter plot
+
+There are many options in `plot()`:
+```{r, eval = F}
+plot(x, y, main = "This is the main title") #set the main title
+plot(x, y, xlab = "This is the x-axis title") #set the x-axis title
+plot(x, y, ylab = "This is the y-axis title" ) #set the y-axis title
+plot(x, y, col = "red" ) #Color of dots in the scatter plot
+plot(x, y, pch = 0) #Different dot shapes in the scatter plot; This should be an integer from 0 to 25. If you don’t type the pch option, R would use the default value of 1 in pch option
+```
+
+
+```{r, echo = F, out.width="60%",  fig.align = 'center', warning=F}
+x = rnorm(1000, 10, 2)
+y = x*2+rnorm(1000, 1, 2)
+plot(x, y, main = "This is the main title", 
+     xlab = "This is the x-axis title", 
+     ylab = "This is the y-axis title", 
+     col = "red", 
+     pch = 0)
+```
+
+## Scatter plot
+
+To combine multiple options, you just need to put all the options you want within the parentheses:
+
+
+_Example: I want to specify the main title, x-axis title, and y-axis title in the scatter plot_
+
+```{r, echo = T, out.width="60%",  fig.align = 'center', warning=F, eval=F}
+plot(x, y, main = "This is the main title", 
+     xlab = "This is the x-axis title", 
+     ylab = "This is the y-axis title", 
+     col = "red", 
+     pch = 0)
+```
+
+
+## Save the plot as separate file
+
+1. right click the plot-->copy and paste it to other programs (e.g., Microsoft Word) --> save as a new file
+
+2. Use the `png()` function and the `dev.off()` function:
+
+_Example: I want to save the scatter plot as a separate png file called scatter.png_
+
+```{r, eval = F, echo = T}
+#Three separate lines of code (they have to be in this order!)
+
+#It asks R to create a new png file called scatter.png in the working directory 
+#with the dimension of 1200X800. All the graphs produced after this line of code
+#will be put into the scatter.png file. 
+#(you can think of this as a “start recording button”)
+png('scatter.png', width = 1200, height = 800) 
+
+#The second line is just the usual scatter plot function
+plot(x,y) 
+
+#The third line is the dev.off() function. 
+#You don’t need to put anything within the parentheses. 
+#Any graphs produced between the first line (png() function) 
+#and this line will be put into the scatter.png file (“stop recording button”)
+dev.off()
+```
+
+## Sampling
+
+*Why sample?*: 
+
+We cannot ask every single person in our population (let's say we are interested in income distribution of all USA residents (~350 million people))
+
+Then, we need to ***cheat***
+
+Is it legit? Yes! 
+
+Why? Due to the properties of the ***Central Limit Theorem***!
+
+One condition: ***sample must be random*** to ensure that our sample ***represents*** the population (=resembles)
+
+## Population vs. Sample vs. Sampling distribution
+
+***Population***: The whole group of people you want to know
+
+***Sample***: Part of the group of people you want to know
+
+***Sampling***: The process to select/pick a sample
+
+## Population vs. Sample vs. Sampling distribution
+
+```{r, echo = F, out.width="60%",  fig.align = 'center', warning=F, eval=T}
+
+population = rchisq(1000000, 10, 2)
+sample = sample(population, 1000)
+means = c()
+for (i in 1:100) {
+  
+  sampl = sample(population, 1000)
+  means[i] = mean(sampl)
+
+}
+
+stats <- data.frame(matrix(ncol=4,
+                           nrow=2, 
+                           dimnames=list(NULL, 
+                                        c('Properties',
+                                          'Population', 
+                                          'Sample',
+                                          'Sampling'))))
+
+stats[1, 1] = "Mean"
+stats[2, 1] = "Standard Deviation"
+stats[1, 2] = paste(round(mean(population), digits = 2))
+stats[1, 3] = paste(round(mean(sample), digits = 2))
+stats[1, 4] = paste(round(mean(means), digits = 2))
+stats[2, 2] = paste(round(sd(population), digits = 2))
+stats[2, 3] = paste(round(sd(sample), digits = 2))
+stats[2, 4] = paste(round(sd(means), digits = 2))
+
+library(kableExtra)
+stats %>%
+  kbl(digits=4) %>%
+   kable_classic(full_width = F, html_font = "Cambria")
+
+par(mfrow=c(1,3))
+
+hist(population, 
+     main = "Distribution of Hourly salary \n of all USA residents", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(population), col="red", lwd = 2)
+abline(v = sd(population), col="green", lwd = 2)
+
+hist(sample, main = "Distribution of Hourly salary \n from one random sample (n=1000)", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(sample), col="red", lwd = 2)
+abline(v = sd(sample), col="green", lwd = 2)
+
+hist(means, main = "Sampling distribution of means \n of 100 random samples (n=1000) \n derived from population distribution", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(means), col="red", lwd = 2)
+abline(v = sd(means), col="green", lwd = 2)
+
+
+```
+
+
+## Sampling
+
+As you can see, if the sample is random, it's mean is close to the population mean
+
+How close?
+
+• According to law of large numbers, if you have large sample size, the sample mean should be close to the population mean
+
+
+• The larger the sample size, the closer the sample mean with the population mean
+
+
+```{r, echo = F, out.width="40%",  fig.align = 'center', warning=F, eval=T}
+par(mfrow=c(1,3))
+
+hist(population, 
+     main = "Distribution of Hourly salary \n of all USA residents", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(population), col="red", lwd = 2)
+abline(v = sd(population), col="green", lwd = 2)
+
+hist(sample, main = "Distribution of Hourly salary \n from one random sample (n=1000)", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(sample), col="red", lwd = 2)
+abline(v = sd(sample), col="green", lwd = 2)
+
+hist(means, main = "Sampling distribution of means \n of 100 random samples (n=1000) \n derived from population distribution", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(means), col="red", lwd = 2)
+abline(v = sd(means), col="green", lwd = 2)
+
+
+
+```
+
+
+## Central Limit Theorem
+
+As number of samples increase, the *sampling* distribution of *means* is approximately normal. ***Also, as the number of samples increasing, the mean of the sampling distribution approaches to the population mean.***
+
+*Note: n should be large enough (30+)*
+
+```{r, echo=FALSE,out.width="60%",  fig.align = 'center'}
+par(mfrow=c(3,3))
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(1, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=1", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(5, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=5", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(10, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=10", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(30, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=30", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(50, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=50", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(100, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=100", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(300, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=300", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(600, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=600", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+means_list = c() #We will save means of the samples into a vector to use it later
+sample_list = c()
+for (s in 1:1000) {
+  
+  x = rchisq(1000, 10, 2) #Draw simple random sample
+  means_list[s] = mean(x) #Get the mean of this sample, and save it in separate list
+  sample_list[s] = list(x)
+  
+}
+hist(means_list, main="n=1000", xlab = "", ylab ="")
+mtext(paste("µ=", round(mean(means_list), digits=2),"σ=", round(sd(means_list), digits=2)), side= 3)
+
+mtext("Sampling Distributions of means from random samples (µ=12,σ=5)", 
+      side = 3,
+      line = -1,
+      outer = TRUE)
+```
+
+## Central Limit Theorem 
+
+No matter how skewed or weird the original distribution is, the sampling distribution would still be approximately normal:
+
+```{r, echo=FALSE,out.width="60%",  fig.align = 'center'}
+population = rchisq(1000000, 10, 2)
+sample = sample(population, 1000)
+means = c()
+for (i in 1:100) {
+  
+  sampl = sample(population, 1000)
+  means[i] = mean(sampl)
+
+}
+par(mfrow=c(1,2))
+
+hist(population, 
+     main = "Original population distribution", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(population), col="red", lwd = 2)
+abline(v = sd(population), col="green", lwd = 2)
+
+hist(means, main = "Sampling distribution of means \n of 100 random samples (n=1000) \n derived from population distribution", 
+     xlab = "",
+     ylab = "")
+abline(v = mean(means), col="red", lwd = 2)
+abline(v = sd(means), col="green", lwd = 2)
+
+
+
+```
+
+
+## Sampling Distribution 
+
+In reality: 
+
+***What we don't know:***
+
+-   population mean 
+
+***What we know:***
+
+-   The sampling distribution is approximately normal
+-   The standard error (standard deviation of the sampling distribution) can be estimated using the standard deviation of the sample:
+
+<p style="text-align: center;">$StandardError = \frac{Sample SD}{\sqrt{n}}$</p>
+
+
+
+## HW3 Guide
+
+-   when you load the HW3.RData into RStudio, you will see the function `auto.sampler` in your Environment pane:
+
+```{r}
+load('HW3.RData')
+```
+
+<p style="text-align: center;">![](images/Screenshot 2023-09-17 at 17.21.03.png){width="900"}</p>
+
+--------
+
+
+### Q5 Guide
+
+if you pass the only number within parentheses, it will give you one sample: 
+
+```{r}
+x = auto.sampler(10000)
+```
+
+Using this sample, write code in your HW 3.R script that will create: 
+
+1. Histogram of this sample (`hist()` function)
+
+2. Mean of this sample (`mean()` function)
+
+3. Standard deviation of this sample (`sd()` function)
+
+4. Standard deviation of the sampling distribution (_Hint: you will need `sqrt()` function_)
+
+--------
+
+### Q6, Q7, Q8 Guide
+
+if you to get sample means for your four samples you need to write: 
+
+```{r, eval = F}
+means = auto.sampler(n=sample size, samples = number of samples)
+```
+
+replace `sample size` and `number of samples` with the ones that HW asks you to do. 
