@@ -29,28 +29,27 @@ stats %>%
 ## ---- eval=F------------------------------------------------------------------
 #  plot(x, y) #x and y are names for your variables
 
-## ---- eval = F----------------------------------------------------------------
-#  plot(x, y, main = "This is the main title") #set the main title
-#  plot(x, y, xlab = "This is the x-axis title") #set the x-axis title
-#  plot(x, y, ylab = "This is the y-axis title" ) #set the y-axis title
-#  plot(x, y, col = "red" ) #Color of dots in the scatter plot
-#  plot(x, y, pch = 0) #Different dot shapes in the scatter plot; This should be an integer from 0 to 25. If you don’t type the pch option, R would use the default value of 1 in pch option
-
-## ---- echo = F, out.width="60%",  fig.align = 'center', warning=F-------------
+## ---- echo = F----------------------------------------------------------------
 x = rnorm(1000, 10, 2)
 y = x*2+rnorm(1000, 1, 2)
+
+
+## ---- eval = T, out.width="45%",  fig.align = 'center', warning=F-------------
+par(mfrow=c(2,3))
+plot(x, y, main = "This is the main title") #set the main title
+plot(x, y, xlab = "This is the x-axis title") #set the x-axis title
+plot(x, y, ylab = "This is the y-axis title" ) #set the y-axis title
+plot(x, y, col = "red" ) #Color of dots in the scatter plot
+plot(x, y, pch = 0) #Different dot shapes in the scatter plot; 
+#This should be an integer from 0 to 25. If you don’t type the pch option, 
+#R would use the default value of 1 in pch option
+
+## ---- echo = T, out.width="60%",  fig.align = 'center', warning=F, eval=T-----
 plot(x, y, main = "This is the main title", 
      xlab = "This is the x-axis title", 
      ylab = "This is the y-axis title", 
      col = "red", 
      pch = 0)
-
-## ---- echo = T, out.width="60%",  fig.align = 'center', warning=F, eval=F-----
-#  plot(x, y, main = "This is the main title",
-#       xlab = "This is the x-axis title",
-#       ylab = "This is the y-axis title",
-#       col = "red",
-#       pch = 0)
 
 ## ---- eval = F, echo = T------------------------------------------------------
 #  #Three separate lines of code (they have to be in this order!)
