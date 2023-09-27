@@ -159,9 +159,16 @@ One condition: ***sample must be random*** to ensure that our sample ***represen
 
 ## Population vs. Sample vs. Sampling distribution
 
+. . .
+
 ***Population***: The whole group of people you want to know
 
+. . .
+
 ***Sample***: Part of the group of people you want to know
+
+. . .
+
 
 ***Sampling***: The process to select/pick a sample
 
