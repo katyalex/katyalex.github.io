@@ -1,0 +1,309 @@
+---
+title: 'S371: Lab 8'
+author: 'Lab Instructor: Katya Baldina (baldina@iu.edu)'
+date: "2023-10-11"
+output:
+  slidy_presentation: default
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE, warning=F}
+knitr::knit_hooks$set(purl = knitr::hook_purl)
+knitr::opts_chunk$set(echo = TRUE)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+
+```
+
+## Announcement
+
+HW 5 IS DUE SUNDAY (OCT.15)!
+
+## Today
+
+-   Clarification on hypothesis testing
+
+. . .
+
+-   One-sample t-test
+
+. . .
+
+-   Two-sample t-test
+
+. . .
+
+
+-   HW5 Guide
+
+## Clarification on hypothesis testing
+
+. . .
+
+- We always test the null hypothesis (please, refer to the Lecture 13)
+
+. . .
+
+Example from HW4: 
+
+H~0~: How likely is that the work experience of Gary and Indiana workers is similar? 
+
+. . .
+
+- We never accept or confirm alternative hypothesis. ***We fail to reject the null hypothesis or support alternative hypothesis***
+
+. . .
+
+- p-value is the probability that our test statistic take a value as extreme than that observed in the sample data, if the null hypothesis is true.
+
+. . .
+
+High p-value: the weaker evidence against null hypothesis
+
+Smaller p-value: the stronger evidence against null hypothesis
+
+
+## One-sample t-test
+
+One-sample t-test = test if the population statistic (e.g. mean) equals to a specific value.
+
+For example, let's test if the mean of x (which is a random variable with mean=5 and sd=10) equals 5:
+
+$$H_0:m=5$$
+$$H_a:m≠5 (two-sided)$$
+
+```{r}
+set.seed(10221)
+x = rnorm(1000, 5, 10)
+mean(x)
+t.test(x, mu = 5, alternative = "two.sided")
+```
+
+t statistic: 1.41
+
+p-value: 0.158
+
+We got p-value 0.158, which is higher than the convenience threshold (p = 0.05), which means that ***our evidence against null hypothesis is weak.***
+
+## One-sample t-test
+
+Now let's test if the mean of x (which is a random variable with mean=5 and sd=10) equals 0:
+
+$$H_0:m=0$$
+$$H_a:m≠0 (two-sided)$$
+
+
+```{r}
+set.seed(10221)
+x = rnorm(1000, 5, 10)
+mean(x)
+t.test(x, mu = 0, alternative = "two.sided")
+```
+
+t statistic: 16.971
+
+p-value: 2.2e-16
+
+Now, we've got p-value <0.001, which means that our evidence against null hypothesis is strong (--> reject null hypothesis)!
+
+
+## Two-sample t-test
+
+
+Two-sample t-test = test if the test statistics in group A equals to that of group B
+
+. . .
+
+Example 1: income difference between males and females 
+
+. . .
+
+Example 2: amount of precipitation between Indiana and California
+
+. . .
+
+Example 3: your turn? 
+
+## Two-sample t-test
+
+According to the Bureau of Labor Statistics (2022), gender gap between men and women earnings is 17%. For example, if men median monthly income is \$1000, women's income would be \$830.
+
+Let's test if the mean income difference between males and females is statistically significant.
+
+$$H_0: µ_{female\ income}=µ_{male\ income}$$
+
+$$H_a: µ_{female\ income}≠µ_{male\ income}$$
+
+
+```{r, echo = F}
+set.seed(10221)
+n <- 100000
+male_inc <- rlnorm(n, meanlog=log(830), sdlog=1.0)
+female_inc <- rlnorm(n, meanlog=log(1000), sdlog=1.0)
+```
+
+```{r}
+set.seed(10221)
+median(female_inc) 
+median(male_inc)
+t.test(female_inc, male_inc, alternative = "two.sided", var.equal = FALSE)
+```
+
+t statistic: 32.282
+
+p-value: 2.2e-16
+
+
+As you can see from the small p-value, it is highly unlikely that female and male incomes are equal (p<0.001)!
+
+
+## Summary and notes
+
+H~0~ is always _"equal to"_
+
+- One-sample test: population mean equals to a specific value: H~a~: µ=X
+
+- Two-sample test: population mean in group A equals to that of group B: H~a~: µ~A~=µ~B~ 
+
+## Summary and notes
+
+H~a~ is specified is several ways: 
+
+. . .
+
+***Two-sided test:***
+
+- population mean does not equal to a specific value: H~a~: µ≠X
+
+- population mean in group A does not equals to that of group B: H~a~: µ~A~≠µ~B~
+
+. . .
+
+***Left-sided test:*** 
+
+- population mean is less than a specific value: H~a~: µ<X
+
+- population mean in group A is less than to that of group B: H~a~: µ~A~<µ~B~
+
+
+. . .
+
+
+***Right-sided test:*** 
+
+- population mean is greater than a specific value: H~a~: µ>X
+
+- population mean in group A is greater than to that of group B: H~a~: µ~A~>µ~B~
+
+
+##  HW5 Guide
+
+
+- We will work with the data, provided by Prof. Schultz. 
+
+This is the data on the household composition of married and divorced respondents from the 2018 GSS. Specifically, it includes the total home population (hompop), the number of babies (babies), the number of preteens (preteen), the number of teens (teens), and the number of adults (adults) and marital status (divorced=1,married=2). You are interested in whether divorced respondents and married respondents live in different households and how they are different. *Submit your R code along with your answers to the questions below.*
+
+
+##  HW5 Guide
+
+_Q1: 1.	Calculate the mean and standard deviations of the five outcome variables (hompop, babies, preteen, teens, adults) (5 points)_
+
+```{r, echo = F}
+setwd("~/Library/CloudStorage/OneDrive-IndianaUniversity/Active/Fall 2023/S371_Lab/Lab")
+load('HW5.RData')
+```
+
+```{r, eval = F}
+table(hhdata$divorce) #Use '$' sign to choose the variable within dataset
+#Variable divorce contains information on divorced (=1) and married (=2) participants.
+```
+
+
+To calculate mean and standard deviation of five outcome variables, please use this code template: 
+
+```{r, eval = F}
+mean(hhdata$variable) #replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+sd(hhdata$variable) #replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+```
+
+
+Write down the output after Q1. 
+
+
+##  HW5 Guide
+
+_Q2: 2.	Using subsetting as explained in the script, calculate the mean and standard deviations of the five outcome variables (hompop, babies, preteen, teens, adults) separately for divorced and married couples.  (10 points)_
+
+What is subsetting? Selecting a part of the dataset based on some criteria (e.g. marital status)
+
+Using subsetting you can calculate any statistics you want for this group (e.g. mean, sd, variance):
+
+```{r}
+table(hhdata$sex[hhdata$divorce==1]) #Let's table sex for divorced people
+table(hhdata$sex[hhdata$divorce==2]) #Let's table sex for married people
+```
+
+##  HW5 Guide
+
+You can also subsetting based on continuous variable:
+```{r}
+table(hhdata$sex[hhdata$babies>1]) #Let's table sex for people who have more than one child
+```
+
+
+##  HW5 Guide
+
+_Q2: 2.	Using subsetting as explained in the script, calculate the mean and standard deviations of the five outcome variables (hompop, babies, preteen, teens, adults) separately for divorced and married couples.  (10 points)_
+
+Use this template to finish Q2:
+
+```{r, eval = F}
+mean(hhdata$variable[hhdata$divorce==1]) #replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+
+sd(hhdata$variable[hhdata$divorce==2]) #replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+
+mean(hhdata$variable[hhdata$divorce==2]) #replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+
+sd(hhdata$variable[hhdata$divorce==2]) #replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+
+```
+
+## HW5 Guide 
+
+_3.	For each of the five outcome variables, test whether the means for divorced and married couples are equal. (10 points)_
+
+For this question you will need to do two-sample t-test.
+
+Use this code as a template: 
+
+```{r, eval = F}
+#replace variable with the name of variable of interest: hompop, babies, preteen, teens, adults
+t.test(hhdata$variable[hhdata$divorce ==1],hhdata$variable[hhdata$divorce ==2]) 
+```
+
+
+-----------
+
+
+
+Example: 
+
+Let's test the difference in sex between divorced and married people: 
+
+$$H_0: µ_{gender\ divorced}=µ_{gender\ married}$$
+
+$$H_a: µ_{gender\ divorced}≠µ_{gender\ married}$$
+
+
+```{r}
+t.test(hhdata$sex[hhdata$divorce ==1],hhdata$sex[hhdata$divorce ==2])
+```
+
+
+t statistic: -1.68
+
+
+p-value: 0.09
+
+p-value is higher than 0.05, so we cannot reject the null hypothesis (H~0~: µ~Divorced~=µ~Married~)
