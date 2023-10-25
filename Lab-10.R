@@ -13,48 +13,50 @@ library(tidyverse)
 load('socmedia.RData')
 
 ## -----------------------------------------------------------------------------
-table(socmedia$SNAPCHAT)
+snapchat <- socmedia$SNAPCHAT
+table(snapchat)
 
 ## -----------------------------------------------------------------------------
 prop.test(308,1345)
 
 ## -----------------------------------------------------------------------------
-sum(socmedia$SNAPCHAT=="YES")
+sum(snapchat=="YES")
 
 ## -----------------------------------------------------------------------------
-sum(socmedia$SNAPCHAT=="YES")
-table(socmedia$SNAPCHAT)
+sum(snapchat=="YES")
+table(snapchat)
 
 ## -----------------------------------------------------------------------------
-length(socmedia$SNAPCHAT)
+length(snapchat)
 
 ## -----------------------------------------------------------------------------
-prop.test(sum(socmedia$SNAPCHAT=="YES"), length(socmedia$SNAPCHAT))
+prop.test(sum(snapchat=="YES"), length(snapchat))
 
 ## -----------------------------------------------------------------------------
-prop.test(sum(socmedia$FACEBOOK=="YES"), length(socmedia$FACEBOOK), p = 0.7)
+facebook <-socmedia$FACEBOOK
+prop.test(sum(facebook=="YES"), length(facebook), p = 0.7)
 
 ## ---- eval = F----------------------------------------------------------------
 #  prop.test(c(a, b), c(X,Y))
 
 ## -----------------------------------------------------------------------------
-table(socmedia$SNAPCHAT[socmedia$FACEBOOK=="YES"])
+table(snapchat[facebook=="YES"])
 
 ## -----------------------------------------------------------------------------
-table(socmedia$SNAPCHAT[socmedia$FACEBOOK=="NO"])
+table(snapchat[facebook=="NO"])
 
 ## -----------------------------------------------------------------------------
-length(socmedia$SNAPCHAT[socmedia$FACEBOOK=="YES"])
-length(socmedia$SNAPCHAT[socmedia$FACEBOOK=="NO"])
+length(snapchat[facebook=="YES"])
+length(snapchat[facebook=="NO"])
 
 ## -----------------------------------------------------------------------------
 prop.test(c(277,31),c(1005,340))
 
 ## -----------------------------------------------------------------------------
-prop.test(c(sum(socmedia$SNAPCHAT[socmedia$FACEBOOK=="YES"]=="YES"),
-            sum(socmedia$SNAPCHAT[socmedia$FACEBOOK=="NO"]=="YES")),
-          c(length(socmedia$SNAPCHAT[socmedia$FACEBOOK=="YES"]),
-            length(socmedia$SNAPCHAT[socmedia$FACEBOOK=="NO"])))
+prop.test(c(sum(snapchat[facebook=="YES"]=="YES"),
+            sum(snapchat[facebook=="NO"]=="YES")),
+          c(length(snapchat[facebook=="YES"]),
+            length(snapchat[facebook=="NO"])))
 
 ## -----------------------------------------------------------------------------
 load('pewdataw38.Rdata')
