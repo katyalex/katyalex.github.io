@@ -624,6 +624,17 @@ variables:</p>
 </div>
 <div id="linear-regression-1" class="slide section level2">
 <h1>Linear regression</h1>
+<p>For example, if we are interested in the relationship between
+people’s height (y) and weight (x)</p>
+<p>We sample a bunch of people and record their heights and weights</p>
+<p>We run a linear regression and get: height = 3+10*weight</p>
+<p>Then, the value of a would be 3 and the value of b would be 10</p>
+<p>If our data (the specific group of people we sample) and/or the
+variables (the things we are interested in) change, the values of a and
+b would change</p>
+</div>
+<div id="linear-regression-2" class="slide section level2">
+<h1>Linear regression</h1>
 <p>In R, we can estimate the linear regression model like this:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a><span class="fu">lm</span>(data<span class="sc">$</span>y <span class="sc">~</span> data<span class="sc">$</span>x)</span></code></pre></div>
 <p>R would report the intercept (a) and slope (b) in the output</p>
@@ -634,8 +645,12 @@ in R:</p>
 detailed output:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
 </div>
-<div id="linear-regression-2" class="slide section level2">
+<div id="linear-regression-3" class="slide section level2">
 <h1>Linear regression</h1>
+<p>Let’s say we are interested if income predicts life satisfaction.</p>
+<p>We suspect that it does: higher income leads to higher life
+satisfaction (why?).</p>
+<p>To test this out, I do a linear regression analysis:</p>
 <p>Simple output:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="fu">lm</span>(GSS<span class="sc">$</span>SATLIFE_R <span class="sc">~</span> GSS<span class="sc">$</span>INCOME)</span></code></pre></div>
 <pre><code>## 
